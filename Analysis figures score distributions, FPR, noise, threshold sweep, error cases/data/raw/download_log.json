@@ -1,0 +1,118 @@
+{
+  "downloaded_at_utc": "2026-10-06T03:27:53+00:00",
+  "source": "Case Western Reserve University Bearing Data Center",
+  "files": [
+    {
+      "file_id": 97,
+      "url": "https://engineering.case.edu/sites/default/files/97.mat",
+      "samples": 243938,
+      "bytes": 3903344,
+      "sha256": "16bf48babcf1c7ac224bc1a81cd9eafdb27e42d5cf559761907e067e8eeadf3c"
+    },
+    {
+      "file_id": 98,
+      "url": "https://engineering.case.edu/sites/default/files/98.mat",
+      "samples": 483903,
+      "bytes": 7742720,
+      "sha256": "37e6612c05e65c415dcfa2ab27a3fda648a5863160fa898b884a14743044e045"
+    },
+    {
+      "file_id": 99,
+      "url": "https://engineering.case.edu/sites/default/files/99.mat",
+      "samples": 485063,
+      "bytes": 15503928,
+      "sha256": "4b97e6b5361f45efb6951dc3b1aebcdb3b89cb69d0f96d6f5c297dd9f45eee75"
+    },
+    {
+      "file_id": 100,
+      "url": "https://engineering.case.edu/sites/default/files/100.mat",
+      "samples": 485643,
+      "bytes": 7770624,
+      "sha256": "88a5990cb541320e91505a1d72139e1993500ffe6e292a451011667f4138ca78"
+    },
+    {
+      "file_id": 109,
+      "url": "https://engineering.case.edu/sites/default/files/109.mat",
+      "samples": 243938,
+      "bytes": 3903344,
+      "sha256": "daddef5f784879becdf8fefbe2453f11c3cfc8d061a2a671da2f546d1bb48460"
+    },
+    {
+      "file_id": 110,
+      "url": "https://engineering.case.edu/sites/default/files/110.mat",
+      "samples": 486224,
+      "bytes": 7779920,
+      "sha256": "9e2bc579af6f4e6d9d26bf63b7ed84ecba7775740d56a3737cc8f04f73c22d1a"
+    },
+    {
+      "file_id": 111,
+      "url": "https://engineering.case.edu/sites/default/files/111.mat",
+      "samples": 485643,
+      "bytes": 7770624,
+      "sha256": "a2e64a397a990efb91ba55252a84796f755bda3eb097c4b47cc0730a08dab309"
+    },
+    {
+      "file_id": 112,
+      "url": "https://engineering.case.edu/sites/default/files/112.mat",
+      "samples": 485643,
+      "bytes": 7770624,
+      "sha256": "1775db11999f268c6ccf04b3ee19857f90a3636f4a582f1abd9a627f991e72d4"
+    },
+    {
+      "file_id": 122,
+      "url": "https://engineering.case.edu/sites/default/files/122.mat",
+      "samples": 244739,
+      "bytes": 3916160,
+      "sha256": "f392129bf3b43360b964d4e5b3479d0797d1647af8359934b0f56b9abab4739a"
+    },
+    {
+      "file_id": 123,
+      "url": "https://engineering.case.edu/sites/default/files/123.mat",
+      "samples": 487384,
+      "bytes": 7798480,
+      "sha256": "a1932ec4bad2460238088ca523fdcec6498e562e91f86255863d3987d9fcd558"
+    },
+    {
+      "file_id": 124,
+      "url": "https://engineering.case.edu/sites/default/files/124.mat",
+      "samples": 486804,
+      "bytes": 7789200,
+      "sha256": "88719243f1b7dbe795c108acaf67ca0115c51517ac35a3fe3460eb07917b2a9a"
+    },
+    {
+      "file_id": 125,
+      "url": "https://engineering.case.edu/sites/default/files/125.mat",
+      "samples": 488545,
+      "bytes": 7817056,
+      "sha256": "2607d0c291ed9a6138aed3eed7015e133f1cf866ac5cdf2251921f08d058f362"
+    },
+    {
+      "file_id": 135,
+      "url": "https://engineering.case.edu/sites/default/files/135.mat",
+      "samples": 243538,
+      "bytes": 3896944,
+      "sha256": "5a1c3ceec1f2b58af9e01051e425aa9d31dd018f58a8d31cda25bbdb1ac6dca9"
+    },
+    {
+      "file_id": 136,
+      "url": "https://engineering.case.edu/sites/default/files/136.mat",
+      "samples": 486804,
+      "bytes": 7789200,
+      "sha256": "37f259eebbc92afa8bd1b445d02af14e83608a48cd7a3cf5c323515ddc2d0f24"
+    },
+    {
+      "file_id": 137,
+      "url": "https://engineering.case.edu/sites/default/files/137.mat",
+      "samples": 486804,
+      "bytes": 7789200,
+      "sha256": "a81b621153e426aa32848be8157c42bcd81065a28ac7655a9a6597f3889fa3ef"
+    },
+    {
+      "file_id": 138,
+      "url": "https://engineering.case.edu/sites/default/files/138.mat",
+      "samples": 487964,
+      "bytes": 7807760,
+      "sha256": "b43eeb67badeb129047ddd3658bf673815dc4bd445facb4217eb04653bb2e11d"
+    }
+  ]
+}
