@@ -1,0 +1,22 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+
+# Raw dataset
+data/raw/
+
+# Processed dataset
+data/processed/
+
+# Generated analysis results
+results/*.npz
+results/*.csv
+
+# Local environments
+.venv/
+venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
