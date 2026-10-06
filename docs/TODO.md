@@ -30,19 +30,19 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 1 — Dữ liệu (HUONG_DAN: Bước 1)
 
-- [ ] 1.1 Viết `src/data/inspect_raw.py` (Bước 1b): in số file, tên biến `_DE_time`, độ dài, thời lượng nếu 12 kHz và 48 kHz. Chạy và in toàn bộ 16 dòng.
+- [x] 1.1 Viết `src/data/inspect_raw.py` (Bước 1b): in số file, tên biến `_DE_time`, độ dài, thời lượng nếu 12 kHz và 48 kHz. Chạy và in toàn bộ 16 dòng.
 
 🛑 **DỪNG 1** — người dùng đối chiếu: tên biến khớp số file? mỗi file đúng một biến `_DE_time`? nhóm Normal (97-100) cùng tần số với nhóm fault? Chờ "tiếp". Nếu lệch tần số: hỏi người dùng chọn cách xử lý (resample), ghi vào "Ghi chú quyết định".
 
-- [ ] 1.2 `src/data/prepare.py`: viết `load_de(n)` và `make_windows(sig, size, stride)` (Bước 1c, 1d)
-- [ ] 1.3 Chia split theo thời gian: cắt tín hiệu trước, cắt window sau (Bước 1e). Train/val/test cho normal 0 HP; calib/test cho normal 1-3 HP; fault vào test.
-- [ ] 1.4 Chuẩn hóa global từ train 0 HP, lưu `data/processed/norm_global.json` (Bước 1f)
-- [ ] 1.5 Xuất các file `.npz` với khóa `X`, `X_raw`, `y`, `fault_type` (Bước 1g); in bảng số window theo tải x split x fault_type
-- [ ] 1.6 Chạy các mục "Tự kiểm tra" của Bước 1 và in kết quả (shape, NaN, mean/std, y có cả 0 và 1)
+- [x] 1.2 `src/data/prepare.py`: viết `load_de(n)` và `make_windows(sig, size, stride)` (Bước 1c, 1d)
+- [x] 1.3 Chia split theo thời gian: cắt tín hiệu trước, cắt window sau (Bước 1e). Train/val/test cho normal 0 HP; calib/test cho normal 1-3 HP; fault vào test.
+- [x] 1.4 Chuẩn hóa global từ train 0 HP, lưu `data/processed/norm_global.json` (Bước 1f)
+- [x] 1.5 Xuất các file `.npz` với khóa `X`, `X_raw`, `y`, `fault_type` (Bước 1g); in bảng số window theo tải x split x fault_type
+- [x] 1.6 Chạy các mục "Tự kiểm tra" của Bước 1 và in kết quả (shape, NaN, mean/std, y có cả 0 và 1)
 
 🛑 **DỪNG 2** — người dùng xem bảng số window. Nếu val hoặc calib chỉ vài chục window: hỏi có dùng stride 256 để ước lượng ngưỡng không (Bước 1e). Chờ "tiếp".
 
-- [ ] 1.7 Viết nháp `DATA.md`: URL, ngày tải (06/10/2026), 16 file, sampling rate đã xác nhận, bảng split, lệnh tái tạo
+- [x] 1.7 Viết nháp `DATA.md`: URL, ngày tải (06/10/2026), 16 file, sampling rate đã xác nhận, bảng split, lệnh tái tạo
 
 ---
 
@@ -123,3 +123,8 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 - Môi trường: dùng Python 3.12 (.venv), torch bản CPU, theo HUONG_DAN Bước 0 (máy mặc định là 3.14, không dùng).
 - .gitignore thêm `*.mat`, `*.npz`, `*.pt` vì dữ liệu thô đang nằm ở `src/data/data/raw/` (không phải `data/raw/`), pattern `data/raw/` không chặn được.
+- Dữ liệu thô nằm ở `src/data/data/raw/` -> đã chuyển về `data/raw/` đúng như HUONG_DAN.
+- inspect_raw: tên biến khớp số file; mỗi file một biến `_DE_time`, TRỪ `99.mat` có thêm `X098_DE_time` (trùng 98.mat) -> `load_de` chọn `X099_DE_time`. Không lệch tần số: normal 20-40 s, fault ~10 s đều hợp lý với 12 kHz -> không resample.
+- Val/calib dùng stride 256 (`threshold_stride` trong config) vì stride 1024 chỉ ra ~34-47 window. Test giữ stride 1024. Hệ quả: normal test 0 HP chỉ có 35 window nên FPR ở 0 HP thô (bước 1/35 ~ 2,9%).
+- Mean/std chuẩn hóa tính từ tín hiệu train 0 HP: mean=0.01255, std=0.07242.
+- Làm hết TODO một mạch theo yêu cầu người dùng ("làm hết cái todo luôn"), các mốc 🛑 chỉ in kết quả, không chờ.

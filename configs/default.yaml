@@ -4,6 +4,8 @@
 window: 1024
 train_stride: 512
 eval_stride: 1024
+# Val / calib ít window nên cắt dày hơn (stride 256) chỉ để ước lượng ngưỡng
+threshold_stride: 256
 
 # Tỉ lệ chia theo thời gian cho normal 0 HP: [train, val, test]
 split: [0.70, 0.15, 0.15]
