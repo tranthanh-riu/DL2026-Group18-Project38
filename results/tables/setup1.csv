@@ -1,0 +1,2 @@
+model,test_load,auc_roc,auc_pr,precision,recall,f1,fpr,recall_inner_race,recall_ball,recall_outer_race
+iforest,0,1.0 ± 0.0,1.0 ± 0.0,1.0 ± 0.0,1.0 ± 0.0,1.0 ± 0.0,0.0 ± 0.0,1.0 ± 0.0,1.0 ± 0.0,1.0 ± 0.0
