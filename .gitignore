@@ -2,6 +2,7 @@
 data/raw/
 data/processed/
 checkpoints/*.pt
+checkpoints/*.joblib
 results/scores/
 __pycache__/
 # Không bao giờ push dữ liệu / checkpoint, kể cả khi nằm ở thư mục lạ (vd src/data/data/raw/)

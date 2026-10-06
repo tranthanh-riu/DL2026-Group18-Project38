@@ -48,10 +48,10 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 2 — Baseline Isolation Forest và metric (HUONG_DAN: Bước 2)
 
-- [ ] 2.1 `src/features.py`: `extract_features(X)` trả `(N, 8)`; test shape
-- [ ] 2.2 `src/metrics.py`: `threshold_free`, `at_threshold`; chạy test bịa (precision 0,5, recall 0,5, FPR 0,5)
-- [ ] 2.3 `src/models/iforest.py`: `fit`, `score`, `main()`; chạy 3 seed, lưu score đúng tên file ở Bước 2b
-- [ ] 2.4 In AUC-ROC và AUC-PR của Isolation Forest ở 0 HP (3 seed)
+- [x] 2.1 `src/features.py`: `extract_features(X)` trả `(N, 8)`; test shape
+- [x] 2.2 `src/metrics.py`: `threshold_free`, `at_threshold`; chạy test bịa (precision 0,5, recall 0,5, FPR 0,5)
+- [x] 2.3 `src/models/iforest.py`: `fit`, `score`, `main()`; chạy 3 seed, lưu score đúng tên file ở Bước 2b
+- [x] 2.4 In AUC-ROC và AUC-PR của Isolation Forest ở 0 HP (3 seed)
 
 🛑 **DỪNG 3** — người dùng kiểm tra AUC-ROC cao rõ rệt hơn 0,5. Nếu gần hoặc dưới 0,5: kiểm tra dấu của score trước khi báo. Chờ "tiếp".
 
