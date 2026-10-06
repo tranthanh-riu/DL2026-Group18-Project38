@@ -59,15 +59,15 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 3 — CNN Autoencoder (HUONG_DAN: Bước 3)
 
-- [ ] 3.1 `src/models/cnn_ae.py`: kiến trúc theo bảng Bước 3a; test `torch.randn(8,1,1024)` ra đúng shape; in số tham số
-- [ ] 3.2 `src/train.py`: viết `train_one_seed(seed)` (Adam, MSE, early stopping patience 5, lưu checkpoint tốt nhất, ghi CSV loss và thời gian)
-- [ ] 3.3 Chạy **chỉ seed 0** và in train loss, val loss theo epoch
+- [x] 3.1 `src/models/cnn_ae.py`: kiến trúc theo bảng Bước 3a; test `torch.randn(8,1,1024)` ra đúng shape; in số tham số
+- [x] 3.2 `src/train.py`: viết `train_one_seed(seed)` (Adam, MSE, early stopping patience 5, lưu checkpoint tốt nhất, ghi CSV loss và thời gian)
+- [x] 3.3 Chạy **chỉ seed 0** và in train loss, val loss theo epoch
 
 🛑 **DỪNG 4** — người dùng xem đường loss của seed 0 (giảm rồi phẳng, không NaN). Chờ "tiếp" rồi mới chạy các seed còn lại.
 
-- [ ] 3.4 Chạy seed 1 và seed 2
-- [ ] 3.5 `src/evaluate.py`: `reconstruction_score`, lưu score cho val, calib 1-3, test 0-3, đủ 3 seed, đặt tên `cnn_ae_seed{s}_...`
-- [ ] 3.6 In AUC-ROC và AUC-PR của CNN-AE ở 0 HP; in score trung bình window fault so với normal
+- [x] 3.4 Chạy seed 1 và seed 2
+- [x] 3.5 `src/evaluate.py`: `reconstruction_score`, lưu score cho val, calib 1-3, test 0-3, đủ 3 seed, đặt tên `cnn_ae_seed{s}_...`
+- [x] 3.6 In AUC-ROC và AUC-PR của CNN-AE ở 0 HP; in score trung bình window fault so với normal
 
 🛑 **DỪNG 5** — người dùng kiểm tra score fault > score normal ở 0 HP và đủ file score của 3 seed. Chờ "tiếp".
 
