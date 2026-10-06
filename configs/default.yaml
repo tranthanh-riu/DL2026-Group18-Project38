@@ -1,1 +1,27 @@
-# window, split, hyperparameter, seed, SNR
+# Mọi tham số của dự án đọc từ file này, không gõ cứng trong code.
+
+# Độ dài một window (số mẫu) và bước nhảy khi cắt window
+window: 1024
+train_stride: 512
+eval_stride: 1024
+
+# Tỉ lệ chia theo thời gian cho normal 0 HP: [train, val, test]
+split: [0.70, 0.15, 0.15]
+
+# Phần đầu của normal 1/2/3 HP dùng làm calib (phần còn lại là test)
+calib_frac: 0.10
+
+# 3 seed lặp lại thí nghiệm để báo mean ± std
+seeds: [0, 1, 2]
+
+# Mức SNR (dB) khi thêm nhiễu Gaussian vào test (Setup3)
+snr_db: [20, 10, 5]
+
+# CNN Autoencoder
+ae: {lr: 0.001, batch: 64, epochs: 50, patience: 5}
+
+# Isolation Forest
+iforest: {n_estimators: 200}
+
+# POT: init_quantile chọn ngưỡng khởi đầu t, q là xác suất rủi ro
+pot: {init_quantile: 0.98, q: 0.001}
