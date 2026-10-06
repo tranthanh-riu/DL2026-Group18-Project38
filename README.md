@@ -2,7 +2,7 @@
 
 Unsupervised anomaly detection on CWRU bearing vibration data: models are trained on normal data at 0 HP and evaluated when the motor load changes (1–3 HP), under added noise, and with different detection thresholds.
 
-> Status: **data pipeline + Isolation Forest baseline done**. CNN-AE, robustness experiments (Setup3), and analysis are still to be added.
+> Status: **data pipeline, Isolation Forest baseline, CNN-AE done** (Setup1, Setup2). Robustness experiments (Setup3) and analysis are still to be added.
 
 ## Installation
 
@@ -45,6 +45,18 @@ python -m src.summarize --models iforest               # results/tables/setup1.c
 - Threshold for Setup1/2 tables: 99th percentile of normal 0 HP validation scores (`src/thresholds.py`).
 - Metrics (`src/metrics.py`): AUC-ROC, AUC-PR, precision, recall, F1, FPR on normal windows, recall per fault type.
 
+## Main model (1D-CNN autoencoder)
+
+```bash
+python -m src.train --seeds 0 1 2                      # ~25 s per seed on CPU -> checkpoints/cnn_ae_s{seed}.pt
+python -m src.evaluate --model cnn_ae --seeds 0 1 2    # score all sets
+python -m src.summarize --models iforest cnn_ae        # Setup1 / Setup2 tables for both models
+```
+
+- Architecture (`src/models/cnn_ae.py`): 4 strided Conv1d layers (1→16→32→64→4 channels, 1024→64 steps), mirrored ConvTranspose1d decoder; latent 4×64 = 256 values (4× compression). 25,237 parameters.
+- Training (`src/train.py`): normal 0 HP train windows only, MSE, Adam (lr 1e-3), batch 64, up to 50 epochs, early stopping on normal 0 HP val loss (patience 5), deterministic per seed.
+- Anomaly score: mean squared reconstruction error per window. Loss curves: `results/figures/cnn_ae_loss.png`.
+
 ## Repository layout
 
 ```
@@ -56,6 +68,8 @@ src/data/dataset.py      load_split() used by all models
 src/data/data_stats.py   per-load statistics and figures
 scripts/check_data.py    data sanity checks
 src/features.py          baseline features
+src/models/cnn_ae.py     CNN autoencoder + detector
+src/train.py             CNN-AE training
 src/models/iforest.py    Isolation Forest detector
 src/evaluate.py          score val/test/calib sets for a model
 src/summarize.py         Setup1 / Setup2 tables
