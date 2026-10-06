@@ -111,9 +111,9 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 ## Giai đoạn 7 — Đóng gói (HUONG_DAN: Bước 7-8)
 
 - [x] 7.1 `scripts/run_all.sh` (bắt đầu từ `prepare`, `set -e`), mỗi file có `main()`
-- [ ] 7.2 `README.md` đủ 7 mục (tiêu đề `DL2026-Group18-Project38`)
-- [ ] 7.3 Hoàn thiện `DATA.md` (thêm sampling rate cuối cùng, quyết định ghi ở dưới)
-- [ ] 7.4 Clone repo vào thư mục trống khác, làm theo README, so `setup1.csv` mới với bản cũ
+- [x] 7.2 `README.md` đủ 7 mục (tiêu đề `DL2026-Group18-Project38`)
+- [x] 7.3 Hoàn thiện `DATA.md` (thêm sampling rate cuối cùng, quyết định ghi ở dưới)
+- [x] 7.4 Clone repo vào thư mục trống khác, làm theo README, so `setup1.csv` mới với bản cũ
 
 🛑 **DỪNG 10 (cuối)** — người dùng chạy checklist nộp (Bước 8b): số liệu report khớp CSV, repo public/cấp quyền, đủ file.
 

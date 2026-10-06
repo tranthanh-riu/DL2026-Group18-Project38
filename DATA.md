@@ -18,8 +18,9 @@ Dùng biến `X<số>_DE_time` (cảm biến Drive End). Lưu ý: `99.mat` chứ
 (bản sao của 98.mat); code chọn đúng `X099_DE_time`.
 
 ## Sampling rate
-Toàn bộ dùng 12 kHz (nhóm 12k Drive End; file normal dài 20-40 s, file fault khoảng 10 s,
-nhất quán với 12 kHz). Không cần resample. (Xem "Ghi chú quyết định" trong docs/TODO.md.)
+Toàn bộ dùng 12 kHz (nhóm 12k Drive End; normal dài 20-40 s, fault khoảng 10 s, nhất quán với 12 kHz;
+nếu là 48 kHz thì chỉ còn 2,5-10 s, không hợp lý). Normal và fault cùng tần số nên không cần resample.
+Lưu ý: tần số của nhóm Normal Baseline không được ghi trên trang nguồn; kết luận 12 kHz dựa vào độ dài tín hiệu. (Xem "Ghi chú quyết định" trong docs/TODO.md.)
 
 ## Tiền xử lý và chia split
 - Window 1024 mẫu. Cắt tín hiệu theo thời gian trước, cắt window sau (không window nào vắt qua hai split).
