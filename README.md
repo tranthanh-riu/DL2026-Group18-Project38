@@ -2,7 +2,7 @@
 
 Unsupervised anomaly detection on CWRU bearing vibration data: models are trained on normal data at 0 HP and evaluated when the motor load changes (1–3 HP), under added noise, and with different detection thresholds.
 
-> Status: **data pipeline, Isolation Forest baseline, CNN-AE, robustness experiments done** (Setup1, Setup2, Setup3). Analysis figures, inference script and report are still to be added.
+> Status: **data pipeline + Isolation Forest baseline done**. CNN-AE, robustness experiments (Setup3), and analysis are still to be added.
 
 ## Installation
 
@@ -45,35 +45,6 @@ python -m src.summarize --models iforest               # results/tables/setup1.c
 - Threshold for Setup1/2 tables: 99th percentile of normal 0 HP validation scores (`src/thresholds.py`).
 - Metrics (`src/metrics.py`): AUC-ROC, AUC-PR, precision, recall, F1, FPR on normal windows, recall per fault type.
 
-## Main model (1D-CNN autoencoder)
-
-```bash
-python -m src.train --seeds 0 1 2                      # ~25 s per seed on CPU -> checkpoints/cnn_ae_s{seed}.pt
-python -m src.evaluate --model cnn_ae --seeds 0 1 2    # score all sets
-python -m src.summarize --models iforest cnn_ae        # Setup1 / Setup2 tables for both models
-```
-
-- Architecture (`src/models/cnn_ae.py`): 4 strided Conv1d layers (1→16→32→64→4 channels, 1024→64 steps), mirrored ConvTranspose1d decoder; latent 4×64 = 256 values (4× compression). 25,237 parameters.
-- Training (`src/train.py`): normal 0 HP train windows only, MSE, Adam (lr 1e-3), batch 64, up to 50 epochs, early stopping on normal 0 HP val loss (patience 5), deterministic per seed.
-- Anomaly score: mean squared reconstruction error per window. Loss curves: `results/figures/cnn_ae_loss.png`.
-
-## Robustness experiments (Setup3)
-
-Inference only: the same models (trained on normal 0 HP) are re-scored, nothing is retrained.
-
-```bash
-python -m src.evaluate --model iforest --seeds 0 1 2 --norms global --noise snr20 snr10 snr5
-python -m src.evaluate --model cnn_ae  --seeds 0 1 2 --norms global --noise snr20 snr10 snr5
-python -m src.robustness --models iforest cnn_ae       # results/tables/setup3_*.csv
-python -m src.plots                                    # analysis figures -> results/figures/ (needs torch)
-```
-
-- Noise (`src/noise.py`): additive white Gaussian noise on test windows only, SNR 20 / 10 / 5 dB. The noise level is fixed (relative to the power of normal 0 HP train, 1 in normalised units), like a sensor noise floor, so it carries no information about each window's amplitude. Fixed RNG per (seed, SNR).
-- Thresholds (`src/thresholds.py`), fitted on normal scores only: 99th percentile of val0, mean + 3 std of val0, POT (GPD over the 98th percentile of val0, risk 1e-3), condition-aware (99th percentile of the test load's normal calibration scores). The oracle best-F1 threshold is chosen on test data and is reported as an upper bound only.
-- Threshold sweep: val0 percentile 90-99.9 (`setup3_threshold_sweep.csv`).
-- Ablation: global vs condition normalisation, each with the val0 and the condition-aware threshold (`setup3_ablation.csv`).
-- Figures (`src/plots.py`): `score_dist_by_load.png`, `fpr_by_load.png`, `f1_vs_snr.png`, `threshold_sweep.png`, `reconstruction_by_load.png`, `error_cases.png`. Error cases are picked by rule (median window of each failing group), not by hand.
-
 ## Repository layout
 
 ```
@@ -85,14 +56,9 @@ src/data/dataset.py      load_split() used by all models
 src/data/data_stats.py   per-load statistics and figures
 scripts/check_data.py    data sanity checks
 src/features.py          baseline features
-src/models/cnn_ae.py     CNN autoencoder + detector
-src/train.py             CNN-AE training
 src/models/iforest.py    Isolation Forest detector
 src/evaluate.py          score val/test/calib sets for a model
 src/summarize.py         Setup1 / Setup2 tables
-src/noise.py             fixed-level Gaussian noise (Setup3)
-src/robustness.py        Setup3 tables (noise, thresholds, ablation)
-src/plots.py             analysis figures
 src/metrics.py           metrics
 src/thresholds.py        threshold strategies
 src/scores.py            score file format
