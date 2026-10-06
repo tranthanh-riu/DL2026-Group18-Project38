@@ -71,7 +71,44 @@ The preprocessing reads the Drive-end signal from the corresponding:
 
 variable in each `.mat` file.
 
-## 5. Preprocessing
+## 5. Raw data directory
+
+The raw CWRU `.mat` files are not stored in Git.
+
+Before running the preprocessing script, place the 16 raw `.mat` files in:
+
+`../data/raw/CWRU/`
+
+relative to the project directory.
+
+For example, if the project is cloned to:
+
+`D:\Desktop\DL2026\DL2026-Group18-Project38\`
+
+the raw data directory should be:
+
+`D:\Desktop\DL2026\data\raw\CWRU\`
+
+The directory should contain:
+
+- `97.mat`
+- `98.mat`
+- `99.mat`
+- `100.mat`
+- `105.mat`
+- `106.mat`
+- `107.mat`
+- `108.mat`
+- `118.mat`
+- `119.mat`
+- `120.mat`
+- `121.mat`
+- `130.mat`
+- `131.mat`
+- `132.mat`
+- `133.mat`
+
+## 6. Preprocessing
 
 Each Drive-end signal is divided into windows of:
 
@@ -116,7 +153,7 @@ Fault size:
 
 - 0.007"
 
-## 6. Normalization statistics
+## 7. Normalization statistics
 
 Mean and standard deviation are calculated only from the training windows of normal 0 HP data.
 
@@ -126,7 +163,7 @@ Saved to:
 
 The main pipeline does not use separate normalization statistics for each load.
 
-## 7. Processed data
+## 8. Processed data
 
 Processed files are exported to:
 
@@ -155,13 +192,18 @@ Generated splits include:
 - `load3_calibration.npz`
 - `load3_test.npz`
 
-## 8. Reproduction
+## 9. Reproduction
 
 From the project root:
 
 Run:
+
 python src\data\prepare.py
 
-The script reads the raw CWRU `.mat` files and generates the processed `.npz` files under:
+The script reads the raw CWRU `.mat` files from:
 
-data/processed/
+`../data/raw/CWRU/`
+
+and generates the processed `.npz` files under:
+
+`data/processed/`
