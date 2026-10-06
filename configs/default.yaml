@@ -26,4 +26,5 @@ ae: {lr: 0.001, batch: 64, epochs: 50, patience: 5}
 iforest: {n_estimators: 200}
 
 # POT: init_quantile chọn ngưỡng khởi đầu t, q là xác suất rủi ro
-pot: {init_quantile: 0.98, q: 0.001}
+# (init_quantile hạ 0.98 -> 0.90 vì val chỉ có 139 window, 0.98 chỉ cho N_t = 3)
+pot: {init_quantile: 0.90, q: 0.001}

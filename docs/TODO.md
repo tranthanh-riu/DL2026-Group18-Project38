@@ -75,8 +75,8 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 4 — Setup1 và Setup2 (HUONG_DAN: Bước 4)
 
-- [ ] 4.1 `src/make_tables.py`: `summarize(df, group_cols)` dùng chung; ngưỡng p99 từ val; xuất `results/tables/setup1.csv` và `setup2.csv` dạng mean ± std
-- [ ] 4.2 In hai bảng; kiểm tra std khác 0 và số 0 HP của hai bảng khớp nhau
+- [x] 4.1 `src/make_tables.py`: `summarize(df, group_cols)` dùng chung; ngưỡng p99 từ val; xuất `results/tables/setup1.csv` và `setup2.csv` dạng mean ± std
+- [x] 4.2 In hai bảng; kiểm tra std khác 0 và số 0 HP của hai bảng khớp nhau
 
 🛑 **DỪNG 6** — người dùng đọc kết quả RQ1 (CNN-AE vs Isolation Forest ở 0 HP) và RQ2 (FPR tăng thế nào khi đổi tải). Chờ "tiếp".
 
@@ -84,16 +84,16 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 5 — Setup3 (HUONG_DAN: Bước 5)
 
-- [ ] 5.1 Lưu model Isolation Forest đã fit (joblib) hoặc fit lại cùng seed; viết `score_any(model_name, seed, X)` cho cả hai model
-- [ ] 5.2 `src/noise.py`: `add_noise(X_raw, snr_db, seed)`; chạy SNR 20/10/5, xuất `setup3_noise.csv`
-- [ ] 5.3 `src/thresholds.py`: `thr_p99`, `thr_mean3s`, `thr_pot`, `thr_per_condition`, `thr_oracle`
-- [ ] 5.4 Chạy thử POT trên val score và in `N_t`, xi, sigma, ngưỡng; so với p99
+- [x] 5.1 Lưu model Isolation Forest đã fit (joblib) hoặc fit lại cùng seed; viết `score_any(model_name, seed, X)` cho cả hai model
+- [x] 5.2 `src/noise.py`: `add_noise(X_raw, snr_db, seed)`; chạy SNR 20/10/5, xuất `setup3_noise.csv`
+- [x] 5.3 `src/thresholds.py`: `thr_p99`, `thr_mean3s`, `thr_pot`, `thr_per_condition`, `thr_oracle`
+- [x] 5.4 Chạy thử POT trên val score và in `N_t`, xi, sigma, ngưỡng; so với p99
 
 🛑 **DỪNG 7** — người dùng xem POT: `N_t` đủ lớn (khoảng 10 trở lên)? ngưỡng cùng cỡ p99, không NaN? Nếu không: hỏi hạ `init_q` hoặc dùng val stride 256. Chờ "tiếp".
 
-- [ ] 5.5 Xuất `setup3_threshold.csv` (4 chiến lược, CNN-AE là chính, thêm Isolation Forest nếu kịp)
-- [ ] 5.6 Ablation chuẩn hóa theo từng tải (Bước 5c) → `setup3_ablation.csv`
-- [ ] 5.7 Chạy ba mục "Tự kiểm tra" của Bước 5 (SNR thấp thì AUC-PR giảm; POT hợp lý; Oracle F1 >= các ngưỡng khác)
+- [x] 5.5 Xuất `setup3_threshold.csv` (4 chiến lược, CNN-AE là chính, thêm Isolation Forest nếu kịp)
+- [x] 5.6 Ablation chuẩn hóa theo từng tải (Bước 5c) → `setup3_ablation.csv`
+- [x] 5.7 Chạy ba mục "Tự kiểm tra" của Bước 5 (SNR thấp thì AUC-PR giảm; POT hợp lý; Oracle F1 >= các ngưỡng khác)
 
 🛑 **DỪNG 8** — người dùng đọc kết quả RQ3 (nhiễu, ngưỡng, chuẩn hóa). Chờ "tiếp".
 
@@ -101,8 +101,8 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 6 — Hình và phân tích (HUONG_DAN: Bước 6)
 
-- [ ] 6.1 `src/plots.py`: 6 hình (loss, phân bố score theo tải, FPR theo tải, F1 theo SNR, F1 theo chiến lược ngưỡng, gốc vs tái tạo), lưu `results/figures/`
-- [ ] 6.2 Chọn 4-6 ca lỗi (fault bị bỏ sót; normal báo nhầm ở 3 HP; ca được cứu nhờ chuẩn hóa theo điều kiện), vẽ gốc/tái tạo/sai số
+- [x] 6.1 `src/plots.py`: 6 hình (loss, phân bố score theo tải, FPR theo tải, F1 theo SNR, F1 theo chiến lược ngưỡng, gốc vs tái tạo), lưu `results/figures/`
+- [x] 6.2 Chọn 4-6 ca lỗi (fault bị bỏ sót; normal báo nhầm ở 3 HP; ca được cứu nhờ chuẩn hóa theo điều kiện), vẽ gốc/tái tạo/sai số
 
 🛑 **DỪNG 9** — người dùng xem hình, đối chiếu số liệu hình với CSV. Chờ "tiếp".
 
@@ -110,7 +110,7 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 
 ## Giai đoạn 7 — Đóng gói (HUONG_DAN: Bước 7-8)
 
-- [ ] 7.1 `scripts/run_all.sh` (bắt đầu từ `prepare`, `set -e`), mỗi file có `main()`
+- [x] 7.1 `scripts/run_all.sh` (bắt đầu từ `prepare`, `set -e`), mỗi file có `main()`
 - [ ] 7.2 `README.md` đủ 7 mục (tiêu đề `DL2026-Group18-Project38`)
 - [ ] 7.3 Hoàn thiện `DATA.md` (thêm sampling rate cuối cùng, quyết định ghi ở dưới)
 - [ ] 7.4 Clone repo vào thư mục trống khác, làm theo README, so `setup1.csv` mới với bản cũ
@@ -128,3 +128,10 @@ Dữ liệu đã có sẵn trong `data/raw/` (97-100, 105-108, 118-121, 130-133)
 - Val/calib dùng stride 256 (`threshold_stride` trong config) vì stride 1024 chỉ ra ~34-47 window. Test giữ stride 1024. Hệ quả: normal test 0 HP chỉ có 35 window nên FPR ở 0 HP thô (bước 1/35 ~ 2,9%).
 - Mean/std chuẩn hóa tính từ tín hiệu train 0 HP: mean=0.01255, std=0.07242.
 - Làm hết TODO một mạch theo yêu cầu người dùng ("làm hết cái todo luôn"), các mốc 🛑 chỉ in kết quả, không chờ.
+- POT: `init_quantile` hạ 0.98 -> 0.90 (val 139 window; 0.98 chỉ cho N_t=3, xi~-1.8 không tin được; 0.90 cho N_t=14, z_q cùng cỡ p99, không NaN). Đã sửa trong configs/default.yaml.
+- Kết quả bão hòa: ở 0 HP CNN-AE và Isolation Forest đều AUC-ROC = 1.000 (fault 0.007" có biên độ lớn hơn normal nhiều: score fault TB ~33 so với normal ~0.005). Vì vậy std qua seed của AUC bằng 0.000 là thật, không phải do seed không đổi (seed khác thì fpr, precision vẫn khác nhau).
+- Ablation/RQ2: FPR CNN-AE tăng nhẹ 0% (0 HP) -> 0.9% / 0.2% / 2.5% (1/2/3 HP); Isolation Forest tăng mạnh hơn (1.9% -> 16-30%).
+- Nhiễu: CNN-AE với ngưỡng p99 từ val sạch báo nhầm 100% normal ở SNR 10 và 5 dB (nhiễu trắng không dựng lại được nên MSE tăng với mọi window) dù AUC-PR vẫn 1.0 -> vấn đề nằm ở ngưỡng chứ không ở thứ hạng score. Isolation Forest ổn hơn; AUC-PR của IF không giảm đơn điệu theo SNR (0.992 / 0.993 / 0.988 ở 20/10/5 dB).
+- Không có fault nào bị bỏ sót (recall = 1.0 ở mọi tải). Error analysis dùng 2 fault có score thấp nhất (vẫn gấp ~200 lần ngưỡng) thay cho ca 'bỏ sót'. Các ca báo nhầm ở 3 HP và ca 'được cứu' có sai số dồn ở mẫu đầu/cuối window (hiệu ứng biên của ConvTranspose/padding).
+- Thứ tự run_all.sh: make_tables chạy TRƯỚC setup3 (ablation đọc results/tables/per_seed_results.csv), khác thứ tự gợi ý trong HUONG_DAN.
+
