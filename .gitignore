@@ -5,9 +5,6 @@ __pycache__/
 # Raw dataset
 data/raw/
 
-# Processed dataset
-data/processed/
-
 # Generated analysis results
 results/*.npz
 results/*.csv
