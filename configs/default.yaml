@@ -1,1 +1,15 @@
-# window, split, hyperparameter, seed, SNR
+# Global configuration. Every script reads its parameters from here (no hard-coding).
+seed: 0
+
+data:
+  manifest: data/manifest.csv
+  raw_dir: data/raw
+  processed_dir: data/processed
+  base_url: https://engineering.case.edu/sites/default/files
+  fs: 48000            # all files used are 48 kHz drive-end recordings (see DATA.md)
+  window: 1024         # samples per window (~21.3 ms at 48 kHz)
+  train_stride: 256    # overlap for the 0 HP normal training segment
+  eval_stride: 256     # stride for normal val / calib / test segments
+  fault_stride: 1024   # non-overlapping windows for fault recordings
+  split_load0: [0.70, 0.15, 0.15]   # train / val / test, contiguous in time, no shuffling
+  calib_frac: 0.10     # first 10% of normal 1/2/3 HP recordings -> calibration set

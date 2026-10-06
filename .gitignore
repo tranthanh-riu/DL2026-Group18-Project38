@@ -1,0 +1,7 @@
+data/raw/*.mat
+data/raw/*.part
+data/processed/
+checkpoints/
+__pycache__/
+*.pyc
+.venv/
