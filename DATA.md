@@ -75,7 +75,9 @@ variable in each `.mat` file.
 
 The raw CWRU `.mat` files are not stored in Git.
 
-Before running the preprocessing script, place the 16 raw `.mat` files in:
+The `download.py` script downloads the required files from the official CWRU website.
+
+The raw data are stored in:
 
 `../data/raw/CWRU/`
 
@@ -196,9 +198,25 @@ Generated splits include:
 
 From the project root:
 
+### Step 1: Download the raw CWRU data
+
 Run:
 
+```text
+python src\data\download.py
+```
+
+The script downloads the 16 required `.mat` files from the official CWRU website.
+
+If a file already exists and is not empty, the script skips that file.
+
+### Step 2: Prepare the dataset
+
+Run:
+
+```text
 python src\data\prepare.py
+```
 
 The script reads the raw CWRU `.mat` files from:
 
