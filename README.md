@@ -65,12 +65,14 @@ Inference only: the same models (trained on normal 0 HP) are re-scored, nothing 
 python -m src.evaluate --model iforest --seeds 0 1 2 --norms global --noise snr20 snr10 snr5
 python -m src.evaluate --model cnn_ae  --seeds 0 1 2 --norms global --noise snr20 snr10 snr5
 python -m src.robustness --models iforest cnn_ae       # results/tables/setup3_*.csv
+python -m src.plots                                    # analysis figures -> results/figures/ (needs torch)
 ```
 
 - Noise (`src/noise.py`): additive white Gaussian noise on test windows only, SNR 20 / 10 / 5 dB. The noise level is fixed (relative to the power of normal 0 HP train, 1 in normalised units), like a sensor noise floor, so it carries no information about each window's amplitude. Fixed RNG per (seed, SNR).
 - Thresholds (`src/thresholds.py`), fitted on normal scores only: 99th percentile of val0, mean + 3 std of val0, POT (GPD over the 98th percentile of val0, risk 1e-3), condition-aware (99th percentile of the test load's normal calibration scores). The oracle best-F1 threshold is chosen on test data and is reported as an upper bound only.
 - Threshold sweep: val0 percentile 90-99.9 (`setup3_threshold_sweep.csv`).
 - Ablation: global vs condition normalisation, each with the val0 and the condition-aware threshold (`setup3_ablation.csv`).
+- Figures (`src/plots.py`): `score_dist_by_load.png`, `fpr_by_load.png`, `f1_vs_snr.png`, `threshold_sweep.png`, `reconstruction_by_load.png`, `error_cases.png`. Error cases are picked by rule (median window of each failing group), not by hand.
 
 ## Repository layout
 
@@ -90,6 +92,7 @@ src/evaluate.py          score val/test/calib sets for a model
 src/summarize.py         Setup1 / Setup2 tables
 src/noise.py             fixed-level Gaussian noise (Setup3)
 src/robustness.py        Setup3 tables (noise, thresholds, ablation)
+src/plots.py             analysis figures
 src/metrics.py           metrics
 src/thresholds.py        threshold strategies
 src/scores.py            score file format
