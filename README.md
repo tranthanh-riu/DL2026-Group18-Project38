@@ -2,7 +2,7 @@
 
 Unsupervised anomaly detection on CWRU bearing vibration data: models are trained on normal data at 0 HP and evaluated when the motor load changes (1–3 HP), under added noise, and with different detection thresholds.
 
-> Status: **data pipeline, Isolation Forest baseline, CNN-AE, robustness experiments done** (Setup1, Setup2, Setup3). Analysis figures, inference script and report are still to be added.
+> Status: **code and experiments complete** (data pipeline, Isolation Forest baseline, CNN-AE, Setup1/2/3, analysis figures, inference demo).
 
 ## Installation
 
@@ -11,7 +11,31 @@ python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\act
 pip install -r requirements.txt
 ```
 
-Tested with Python 3.12, numpy, scipy 1.17, pandas, matplotlib, PyYAML. CPU is enough.
+Tested with Python 3.12, numpy, scipy 1.17, pandas, matplotlib, PyYAML, torch 2.x (CPU build is enough).
+
+## Reproduce everything
+
+```bash
+bash scripts/run_all.sh        # ~2 min on CPU: data -> baseline -> CNN-AE -> all tables and figures
+```
+
+All results are deterministic (seeds 0, 1, 2); re-running reproduces `results/tables/*.csv` exactly.
+If torch and scipy/scikit-learn live in different environments (e.g. Windows Smart App Control
+blocks some DLLs in one of them), point the script at both:
+`PY=python PY_TORCH=.venv/Scripts/python.exe bash scripts/run_all.sh`.
+
+## Main results
+
+Train on normal 0 HP only; threshold = 99th percentile of normal 0 HP validation scores; mean over 3 seeds.
+
+| Test load | Model | AUC-ROC | F1 | FPR on normal |
+|---|---|---|---|---|
+| 0 HP (Setup1) | Isolation Forest | 1.000 | 1.000 | 0.0% |
+| 0 HP (Setup1) | CNN-AE | 1.000 | 0.999 | 1.2% |
+| 1 / 2 / 3 HP (Setup2) | Isolation Forest | 0.997 / 0.997 / 0.997 | 0.920 / 0.893 / 0.943 | 14.6 / 20.2 / 10.2% |
+| 1 / 2 / 3 HP (Setup2) | CNN-AE | 0.746 / 0.693 / 0.683 | 0.626 / 0.626 / 0.626 | 100% |
+
+With a condition-aware threshold (99th percentile of a small normal calibration set from the new load), CNN-AE FPR drops to 2.2 / 1.2 / 0.5% (F1 ≈ 0.80), but ball faults remain undetected at 1-3 HP. Full tables: `results/tables/setup1.csv`, `setup2.csv`, `setup3_*.csv`.
 
 ## Data
 
@@ -48,7 +72,7 @@ python -m src.summarize --models iforest               # results/tables/setup1.c
 ## Main model (1D-CNN autoencoder)
 
 ```bash
-python -m src.train --seeds 0 1 2                      # ~25 s per seed on CPU -> checkpoints/cnn_ae_s{seed}.pt
+python -m src.train --seeds 0 1 2                      # ~10-25 s per seed on CPU -> checkpoints/cnn_ae_s{seed}.pt
 python -m src.evaluate --model cnn_ae --seeds 0 1 2    # score all sets
 python -m src.summarize --models iforest cnn_ae        # Setup1 / Setup2 tables for both models
 ```
@@ -74,6 +98,22 @@ python -m src.plots                                    # analysis figures -> res
 - Ablation: global vs condition normalisation, each with the val0 and the condition-aware threshold (`setup3_ablation.csv`).
 - Figures (`src/plots.py`): `score_dist_by_load.png`, `fpr_by_load.png`, `f1_vs_snr.png`, `threshold_sweep.png`, `reconstruction_by_load.png`, `error_cases.png`. Error cases are picked by rule (median window of each failing group), not by hand.
 
+## Inference / demo
+
+Score any CWRU drive-end `.mat` recording window by window (1024 samples, no overlap):
+
+```bash
+python -m src.inference --mat data/raw/123.mat                              # CNN-AE seed 0, val0 threshold
+python -m src.inference --mat data/raw/99.mat --calib-mat data/raw/99.mat   # condition-aware threshold
+python -m src.inference --mat data/raw/99.mat --model iforest
+```
+
+Output: `results/inference/<file>_<model>_s<seed>.csv` with start sample, time, score, threshold and an
+`anomaly` flag per window, plus a summary line (share of windows flagged). The signal variable is
+detected automatically (`*_DE_time`, matching the file number); override with `--key`.
+`--calib-mat` uses the first 10% of a NORMAL recording from the new operating condition.
+Requires the processed data (for normalisation statistics) and, for CNN-AE, a trained checkpoint.
+
 ## Repository layout
 
 ```
@@ -96,6 +136,8 @@ src/plots.py             analysis figures
 src/metrics.py           metrics
 src/thresholds.py        threshold strategies
 src/scores.py            score file format
+src/inference.py         score a .mat recording -> per-window score + flag
+scripts/run_all.sh       full pipeline, one command
 results/                 tables and figures
 ```
 
