@@ -1,0 +1,17 @@
+file_id,load_hp,label,fault_type,fault_size_in,fs_hz,signal_key,description
+97,0,0,normal,0.0,48000,X097_DE_time,Normal baseline 0 HP
+98,1,0,normal,0.0,48000,X098_DE_time,Normal baseline 1 HP
+99,2,0,normal,0.0,48000,X099_DE_time,Normal baseline 2 HP (file also contains X098_* keys - use X099)
+100,3,0,normal,0.0,48000,X100_DE_time,Normal baseline 3 HP
+109,0,1,inner_race,0.007,48000,X109_DE_time,48k drive-end fault IR007 0 HP
+110,1,1,inner_race,0.007,48000,X110_DE_time,48k drive-end fault IR007 1 HP
+111,2,1,inner_race,0.007,48000,X111_DE_time,48k drive-end fault IR007 2 HP
+112,3,1,inner_race,0.007,48000,X112_DE_time,48k drive-end fault IR007 3 HP
+122,0,1,ball,0.007,48000,X122_DE_time,48k drive-end fault B007 0 HP
+123,1,1,ball,0.007,48000,X123_DE_time,48k drive-end fault B007 1 HP
+124,2,1,ball,0.007,48000,X124_DE_time,48k drive-end fault B007 2 HP
+125,3,1,ball,0.007,48000,X125_DE_time,48k drive-end fault B007 3 HP
+135,0,1,outer_race,0.007,48000,X135_DE_time,48k drive-end fault OR007@6 0 HP
+136,1,1,outer_race,0.007,48000,X136_DE_time,48k drive-end fault OR007@6 1 HP
+137,2,1,outer_race,0.007,48000,X137_DE_time,48k drive-end fault OR007@6 2 HP
+138,3,1,outer_race,0.007,48000,X138_DE_time,48k drive-end fault OR007@6 3 HP
