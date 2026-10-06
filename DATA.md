@@ -134,6 +134,30 @@ python -m src.data.data_stats    # per-load statistics + figures (optional)
 
 All parameters are in `configs/default.yaml` (`data:` section). The pipeline is deterministic: no random sampling is involved.
 
+### Processed dataset (no hosted copy)
+
+The processed dataset is **not hosted separately**: it is a deterministic function of the 16 official
+CWRU files above and `configs/default.yaml`, and `python -m src.data.prepare` regenerates it in a few
+seconds. Re-running it produces byte-identical files, which can be checked against these SHA-256 sums
+(`cd data/processed && sha256sum -c` with the list below saved to a file):
+
+```
+16fc89fab3e43eb85412abca28bce5c73343d7f9f7c55768eab76f5ebed4a6f0  load0_test.npz
+647f59fed485288e7695b1643550934c26a5172900f17ba74d55ef295080a49e  load0_train.npz
+508ba0c86975ac7d4c969dc54f2339ad1fd073d457050b5d368770bd49cb1a57  load0_val.npz
+83cd9c48aab4e0cd2917a2d61f2494a9bc8d0783d108592f0405268ec857b615  load1_calib.npz
+bc2f644675d6c9a46f61909ec89650fba147fef7bbd85b3a17555b51ee299cf5  load1_test.npz
+b7c23a6571e4b485465146770dbf92046c5a7837a2f53593af8bf23457178933  load2_calib.npz
+38da18963b4819ae601044de730ca3fdb283b74a4175af196cf1f915602d3552  load2_test.npz
+22a428f9a51712e6b4cecb54e26dc8875b580e7b8c58470e428d6da74076af91  load3_calib.npz
+f647c307a4867fb3879e999160d07112dc2615cbfc427dbcb100e4dfa851a853  load3_test.npz
+966b33112298900e7d87a6e1f9c22fcccf869e66d3ad4d72809587d05558f534  stats.json
+```
+
+Checksums were produced with Python 3.14 / numpy 2.x. The `.npz` files are zlib-compressed, so another
+numpy or zlib version may give different bytes for identical arrays; in that case `python scripts/check_data.py`
+and the window counts in Section 4 confirm the content.
+
 ## 8. Observed operating-condition shift (normal data)
 
 From `results/tables/data_stats_by_load.csv` and `results/figures/data_psd_by_load.png`:
